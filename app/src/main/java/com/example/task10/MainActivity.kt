@@ -1,8 +1,10 @@
 package com.example.task10
 
+import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Button
+import android.widget.EditText
 import android.widget.LinearLayout
 import android.widget.ScrollView
 
@@ -10,19 +12,22 @@ class MainActivity : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        var ScrollView = ScrollView(this)
-        val linearLayout: LinearLayout=LinearLayout(this)
-       linearLayout.orientation=LinearLayout.VERTICAL
+        var linearLayout: LinearLayout= LinearLayout(this)
+        linearLayout.orientation=LinearLayout.VERTICAL
         setContentView(linearLayout)
-         setContentView(ScrollView)
-        for(i in 0 until 50){
-            val button = Button(this)
-            button.text="Button ${i+1}"
-            linearLayout.addView(button)
+        var editText=EditText(this)
+        var button=Button(this)
+        linearLayout.addView(editText)
+        linearLayout.addView(button)
+        button.text="Next"
+        editText.hint="Please Enter count of buttons"
+
+        button.setOnClickListener{
+            if(editText.text.toString().isNotEmpty()){
+              val intent = Intent(this,SecondActivity::class.java)
+                intent.putExtra("count",editText.text.toString())
+                startActivity(intent)
+            }
         }
-
-        ScrollView.addView(linearLayout)
-
-
     }
 }
